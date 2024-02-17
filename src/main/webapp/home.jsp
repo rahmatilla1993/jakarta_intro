@@ -12,6 +12,5 @@
 </head>
 <body>
 <h1>Home page</h1>
-<a href="convert.jsp">Kalkulyatorga o'tish</a>
 </body>
 </html>
