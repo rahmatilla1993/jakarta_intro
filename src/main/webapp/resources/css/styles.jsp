@@ -2,17 +2,16 @@
   Created by IntelliJ IDEA.
   User: rahmatilla
   Date: 2/17/24
-  Time: 4:58 PM
+  Time: 11:47 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Home</title>
+    <title>Styles</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Home page</h1>
-<a href="/images">Images List</a>
-<a href="/upload">Upload image</a>
+
 </body>
 </html>
