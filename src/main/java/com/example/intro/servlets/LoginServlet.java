@@ -9,12 +9,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.Optional;
 
-@WebServlet(name = "UserAdd", value = "/user/add")
-public class UserAdd extends HttpServlet {
-
+@WebServlet(name = "LoginServlet", value = "/login")
+public class LoginServlet extends HttpServlet {
     private UserDao userDao;
 
     @Override
@@ -24,17 +25,22 @@ public class UserAdd extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/views/user_add.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/views/login.jsp");
+        dispatcher.forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("name");
-        if (userDao.findByUsername(username).isEmpty()) {
-            resp.sendError(400, "This username already taken");
-        } else {
-            userDao.add(User.builder().username(username).build());
+        Optional<User> optionalUser = userDao.findByUsername(username);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            HttpSession session = req.getSession();
+            System.out.println("session.getId() = " + session.getId());
+            session.setAttribute("userId", user.getId());
             resp.sendRedirect("/users");
+        } else {
+            resp.sendError(404, "User not found");
         }
     }
 }

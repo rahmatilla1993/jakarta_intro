@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class UserDao {
@@ -72,12 +73,13 @@ public class UserDao {
         return null;
     }
 
-    public User findByUsername(String username) {
+    public Optional<User> findByUsername(String username) {
+        User user = null;
         try (var ps = connection.prepareStatement("select * from users where username = ?")) {
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return User.builder()
+                user = User.builder()
                         .id(rs.getString("id"))
                         .username(rs.getString("username"))
                         .build();
@@ -85,7 +87,7 @@ public class UserDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return Optional.ofNullable(user);
     }
 
     public boolean add(User user) {
