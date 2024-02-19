@@ -9,8 +9,14 @@
 <html>
 <head>
     <title>Home</title>
+    <jsp:include page="/fragments/css/styles.jsp"/>
 </head>
 <body>
-<h1>Home page</h1>
+<jsp:include page="views/navbar.jsp"/>
+<div class="container">
+    <h1 class="text-center">Main Page</h1>
+</div>
+
+<jsp:include page="fragments/js/main.jsp"/>
 </body>
 </html>
