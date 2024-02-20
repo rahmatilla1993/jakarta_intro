@@ -17,7 +17,7 @@
 <div class="container">
     <div class="rows">
         <div class="col-10 offset-1">
-            <form method="post">
+            <form method="post" action="/login">
                 <div class="mb-3">
                     <label for="name" class="form-label">User Name</label>
                     <input type="text" class="form-control" id="name" name="name">

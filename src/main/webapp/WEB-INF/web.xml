@@ -7,4 +7,13 @@
         <error-code>404</error-code>
         <location>/views/error/404.jsp</location>
     </error-page>
+    <filter>
+        <filter-name>SecurityFilter</filter-name>
+        <filter-class>com.example.intro.filter.SecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SecurityFilter</filter-name>
+        <url-pattern>/group/*</url-pattern>
+        <url-pattern>/student/*</url-pattern>
+    </filter-mapping>
 </web-app>

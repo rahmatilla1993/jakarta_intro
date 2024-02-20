@@ -34,13 +34,12 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("name");
         Optional<User> optionalUser = userDao.findByUsername(username);
+        System.out.println("Login Post");
         if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
             HttpSession session = req.getSession();
-            session.setAttribute("username", user.getUsername());
+            session.setAttribute("username", username);
             resp.sendRedirect("/users");
-        }
-        else {
+        } else {
             resp.sendError(404, "Username not found");
         }
     }
