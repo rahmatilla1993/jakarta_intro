@@ -31,12 +31,12 @@ public class UserAdd extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("name");
-//        Optional<User> optionalUser = userDao.findByUsername(username);
-//        if (optionalUser.isPresent()) {
-//            resp.sendError(400, "This username already taken");
-//        } else {
-        userDao.add(User.builder().username(username).build());
-        resp.sendRedirect("/users");
-//        }
+        Optional<User> optionalUser = userDao.findByUsername(username);
+        if (optionalUser.isPresent()) {
+            resp.sendError(400, "This username already taken");
+        } else {
+            userDao.add(User.builder().username(username).build());
+            resp.sendRedirect("/users");
+        }
     }
 }
