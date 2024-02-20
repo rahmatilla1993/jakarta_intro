@@ -2,8 +2,9 @@ package com.example.intro.servlets.student;
 
 import com.example.intro.database.dao.GroupDao;
 import com.example.intro.database.dao.StudentDao;
-import com.example.intro.database.domain.Group;
-import com.example.intro.database.domain.Student;
+import com.example.intro.database.entity.Group;
+import com.example.intro.database.entity.Student;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -22,8 +23,10 @@ public class StudentAddServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        studentDao = StudentDao.getInstance();
-        groupDao = GroupDao.getInstance();
+        super.init(config);
+        var emf = (EntityManagerFactory) getServletContext().getAttribute("entityManagerFactory");
+        studentDao = new StudentDao(emf);
+        groupDao = new GroupDao(emf);
     }
 
     @Override
@@ -39,11 +42,12 @@ public class StudentAddServlet extends HttpServlet {
         String lastName = req.getParameter("lastName");
         int age = Integer.parseInt(req.getParameter("age"));
         int groupId = Integer.parseInt(req.getParameter("group"));
+        Group group = groupDao.getOne(groupId);
         Student student = Student.builder()
                 .firstName(firstName)
                 .lastName(lastName)
                 .age(age)
-                .groupId(groupId)
+                .group(group)
                 .build();
         studentDao.save(student);
         resp.sendRedirect("/student/list");

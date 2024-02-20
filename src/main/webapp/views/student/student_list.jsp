@@ -37,7 +37,7 @@
                         <td>${student.getFirstName()}</td>
                         <td>${student.getLastName()}</td>
                         <td>${student.getAge()}</td>
-                        <td>${student.getGroupId()}</td>
+                        <td>${student.getGroup().getId()}</td>
                         <td><a href="/student/edit/${student.getId()}" class="btn btn-warning">Edit</a> || <a
                                 href="/student/delete/${student.getId()}"
                                 class="btn btn-danger">Delete</a>

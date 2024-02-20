@@ -1,6 +1,7 @@
 package com.example.intro.servlets.group;
 
 import com.example.intro.database.dao.GroupDao;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -15,10 +16,11 @@ import java.io.IOException;
 public class GroupListServlet extends HttpServlet {
 
     private GroupDao groupDao;
-
     @Override
     public void init(ServletConfig config) throws ServletException {
-        groupDao = GroupDao.getInstance();
+        super.init(config);
+        var emf = (EntityManagerFactory) getServletContext().getAttribute("entityManagerFactory");
+        groupDao = new GroupDao(emf);
     }
 
     @Override

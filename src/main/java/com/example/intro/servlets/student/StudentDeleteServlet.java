@@ -1,6 +1,7 @@
 package com.example.intro.servlets.student;
 
 import com.example.intro.database.dao.StudentDao;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -18,7 +19,9 @@ public class StudentDeleteServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        studentDao = StudentDao.getInstance();
+        super.init(config);
+        var emf = (EntityManagerFactory) getServletContext().getAttribute("entityManagerFactory");
+        studentDao = new StudentDao(emf);
     }
 
     @Override
@@ -32,7 +35,7 @@ public class StudentDeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getPathInfo().substring(1));
-       studentDao.delete(id);
-       resp.sendRedirect("/student/list");
+        studentDao.delete(id);
+        resp.sendRedirect("/student/list");
     }
 }
