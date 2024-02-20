@@ -37,7 +37,9 @@ public class LoginServlet extends HttpServlet {
         System.out.println("Login Post");
         if (optionalUser.isPresent()) {
             HttpSession session = req.getSession();
-            session.setAttribute("username", username);
+            User user = optionalUser.get();
+            session.setAttribute("username", user.getUsername());
+            session.setAttribute("userId", user.getId());
             resp.sendRedirect("/users");
         } else {
             resp.sendError(404, "Username not found");
