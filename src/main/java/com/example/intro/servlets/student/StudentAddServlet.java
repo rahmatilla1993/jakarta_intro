@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -45,7 +46,9 @@ public class StudentAddServlet extends HttpServlet {
                 .age(age)
                 .groupId(groupId)
                 .build();
-        studentDao.save(student);
+        HttpSession session = req.getSession();
+        String userId = (String) session.getAttribute("userId");
+        studentDao.save(student, userId);
         resp.sendRedirect("/student/list");
     }
 }

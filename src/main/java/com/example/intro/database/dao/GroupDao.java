@@ -75,11 +75,12 @@ public class GroupDao {
         return null;
     }
 
-    public int save(Group group) {
+    public int save(Group group, String createdUserId) {
         try (var ps = connection.prepareStatement(
-                "insert into student_group(name, student_count) VALUES (?, ?) returning id")) {
+                "insert into student_group(name, student_count, created_by) VALUES (?, ?, ?) returning id")) {
             ps.setString(1, group.getName());
             ps.setInt(2, group.getStudentsCount());
+            ps.setString(3, createdUserId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getInt("id");

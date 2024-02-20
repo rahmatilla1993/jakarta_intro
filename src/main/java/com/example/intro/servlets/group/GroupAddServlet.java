@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -35,7 +36,9 @@ public class GroupAddServlet extends HttpServlet {
                 .name(groupName)
                 .studentsCount(studentsCount)
                 .build();
-        groupDao.save(group);
+        HttpSession session = req.getSession();
+        String userId =(String) session.getAttribute("userId");
+        groupDao.save(group, userId);
         resp.sendRedirect("/group/list");
     }
 }

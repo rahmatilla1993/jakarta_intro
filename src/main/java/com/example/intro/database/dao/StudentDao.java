@@ -81,13 +81,14 @@ public class StudentDao {
         return null;
     }
 
-    public int save(Student student) {
+    public int save(Student student, String createdUserId) {
         try (var ps = connection.prepareStatement(
-                "insert into student(first_name, last_name, age, group_id) VALUES (?, ?, ?, ?) returning id;")) {
+                "insert into student(first_name, last_name, age, group_id, created_by) VALUES (?, ?, ?, ?, ?) returning id;")) {
             ps.setString(1, student.getFirstName());
             ps.setString(2, student.getLastName());
             ps.setInt(3, student.getAge());
             ps.setInt(4, student.getGroupId());
+            ps.setString(5, createdUserId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getInt("id");

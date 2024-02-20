@@ -29,7 +29,6 @@ public class Runner {
                 .name("IT")
                 .studentsCount(50)
                 .build();
-        System.out.println(groupDao.save(group));
         groupDao.getAll().forEach(System.out::println);
     }
 }
