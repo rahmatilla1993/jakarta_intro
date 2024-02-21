@@ -2,6 +2,7 @@ package com.example.intro.servlets.group;
 
 import com.example.intro.database.dao.GroupDao;
 import com.example.intro.database.entity.Group;
+import com.example.intro.utils.ValidationUtils;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Map;
 
 @WebServlet(name = "GroupAddServlet", value = "/group/add")
 public class GroupAddServlet extends HttpServlet {
@@ -38,7 +40,14 @@ public class GroupAddServlet extends HttpServlet {
                 .name(groupName)
                 .studentsCount(studentsCount)
                 .build();
-        groupDao.save(group);
-        resp.sendRedirect("/group/list");
+        Map<String, String> errors = ValidationUtils.validate(group);
+        if (errors.isEmpty()) {
+            groupDao.save(group);
+            resp.sendRedirect("/group/list");
+        } else {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/views/group/group_add.jsp");
+            req.setAttribute("errors", errors);
+            dispatcher.forward(req, resp);
+        }
     }
 }

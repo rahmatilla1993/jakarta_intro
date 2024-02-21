@@ -3,7 +3,6 @@ package com.example.intro.database.dao;
 import com.example.intro.database.entity.Group;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Query;
 
 import java.util.List;
 
@@ -16,8 +15,7 @@ public final class GroupDao {
 
     public List<Group> getAll() {
         begin();
-        Query query = em.createQuery("from Group", Group.class);
-        List<Group> groups = query.getResultList();
+        List<Group> groups = em.createQuery("from Group", Group.class).getResultList();
         commit();
         return groups;
     }

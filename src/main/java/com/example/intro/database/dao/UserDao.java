@@ -17,8 +17,7 @@ public class UserDao {
 
     public List<User> getAll() {
         begin();
-        List<User> list = em.createQuery("from User", User.class)
-                .getResultList();
+        List<User> list = em.createQuery("from User", User.class).getResultList();
         commit();
         return list;
     }
@@ -36,7 +35,7 @@ public class UserDao {
         return Optional.ofNullable(user);
     }
 
-    public Optional<User> findById(int id) {
+    public Optional<User> findById(String id) {
         begin();
         User user = em.find(User.class, id);
         commit();
@@ -55,7 +54,7 @@ public class UserDao {
         commit();
     }
 
-    public void delete(int id) {
+    public void delete(String id) {
         begin();
         em.createQuery("delete from User where id = :id")
                 .setParameter("id", id)

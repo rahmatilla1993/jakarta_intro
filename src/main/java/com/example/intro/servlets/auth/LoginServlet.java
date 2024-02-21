@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(name = "LoginServlet", value = "/login")
+//@WebServlet(name = "LoginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
 
     private UserDao userDao;
@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/views/login.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/views/auth/login.jsp");
         dispatcher.forward(req, resp);
     }
 
@@ -41,7 +41,8 @@ public class LoginServlet extends HttpServlet {
             User user = optionalUser.get();
             HttpSession session = req.getSession();
             session.setAttribute("username", user.getUsername());
-            resp.sendRedirect("/users");
+            session.setAttribute("userId", user.getId());
+            resp.sendRedirect("/user/list");
         }
         else {
             resp.sendError(404, "Username not found");

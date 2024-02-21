@@ -18,6 +18,11 @@
 <div class="container">
     <div class="rows">
         <div class="col-8 offset-2">
+            <c:if test="${errors != null}">
+                <c:forEach items="${errors}" var="error">
+                    <p class="alert alert-danger">${error}</p>
+                </c:forEach>
+            </c:if>
             <form method="post">
                 <div class="mb-3">
                     <label for="firstName" class="form-label">FirstName</label>
@@ -29,7 +34,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="age" class="form-label">Age</label>
-                    <input type="text" class="form-control" id="age" name="age">
+                    <input type="text" class="form-control" id="age" name="age" value="0">
                 </div>
                 <div class="mb-3">
                     <label for="group" class="form-label">Group</label>

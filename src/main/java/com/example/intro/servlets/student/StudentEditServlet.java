@@ -4,6 +4,7 @@ import com.example.intro.database.dao.GroupDao;
 import com.example.intro.database.dao.StudentDao;
 import com.example.intro.database.entity.Group;
 import com.example.intro.database.entity.Student;
+import com.example.intro.utils.ValidationUtils;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
@@ -14,6 +15,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.Objects;
 
 @WebServlet(name = "StudentEditServlet", value = "/student/edit/*")
 public class StudentEditServlet extends HttpServlet {
@@ -44,7 +47,8 @@ public class StudentEditServlet extends HttpServlet {
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
         int age = Integer.parseInt(req.getParameter("age"));
-        int groupId = Integer.parseInt(req.getParameter("group"));
+        String gr = req.getParameter("group");
+        int groupId = Objects.requireNonNullElse(Integer.parseInt(gr), 0);
         Group group = groupDao.getOne(groupId);
         Student student = Student.builder()
                 .id(id)
@@ -53,7 +57,14 @@ public class StudentEditServlet extends HttpServlet {
                 .age(age)
                 .group(group)
                 .build();
-        studentDao.update(student);
-        resp.sendRedirect("/student/list");
+        Map<String, String> errors = ValidationUtils.validate(student);
+        if (errors.isEmpty()) {
+            studentDao.update(student);
+            resp.sendRedirect("/student/list");
+        } else {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/views/student/student_edit.jsp");
+            req.setAttribute("errors", errors);
+            dispatcher.forward(req, resp);
+        }
     }
 }

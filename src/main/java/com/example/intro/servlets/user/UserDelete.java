@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(name = "UserDelete", value = "/user/delete/*")
+//@WebServlet(name = "UserDelete", value = "/user/delete/*")
 public class UserDelete extends HttpServlet {
     private UserDao userDao;
 
@@ -28,7 +28,7 @@ public class UserDelete extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getPathInfo().substring(1);
-        Optional<User> optionalUser = userDao.findById(Integer.parseInt(id));
+        Optional<User> optionalUser = userDao.findById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             req.setAttribute("username", user.getUsername());
@@ -40,7 +40,7 @@ public class UserDelete extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getPathInfo().substring(1);
-        userDao.delete(Integer.parseInt(id));
-        resp.sendRedirect("/users");
+        userDao.delete(id);
+        resp.sendRedirect("/user/list");
     }
 }

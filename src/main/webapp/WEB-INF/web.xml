@@ -4,6 +4,35 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
+    <!--    Login-->
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.example.intro.servlets.auth.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/auth/login</url-pattern>
+    </servlet-mapping>
+
+    <!--    Users-->
+    <servlet>
+        <servlet-name>UserList</servlet-name>
+        <servlet-class>com.example.intro.servlets.user.UserList</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserList</servlet-name>
+        <url-pattern>/user/list</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserEdit</servlet-name>
+        <servlet-class>com.example.intro.servlets.user.UserEdit</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserEdit</servlet-name>
+        <url-pattern>/user/edit/*</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>UserAdd</servlet-name>
         <servlet-class>com.example.intro.servlets.user.UserAdd</servlet-class>
@@ -12,6 +41,16 @@
         <servlet-name>UserAdd</servlet-name>
         <url-pattern>/user/add</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserDelete</servlet-name>
+        <servlet-class>com.example.intro.servlets.user.UserDelete</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserDelete</servlet-name>
+        <url-pattern>/user/delete/*</url-pattern>
+    </servlet-mapping>
+
 
     <error-page>
         <error-code>404</error-code>

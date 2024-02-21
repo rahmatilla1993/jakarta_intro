@@ -17,16 +17,17 @@
 <div class="container">
     <div class="rows">
         <div class="col-10 offset-1">
-            <%--            <form method="post">--%>
-            <%--                <div class="mb-3">--%>
-            <%--                    <label for="name" class="form-label">User Name</label>--%>
-            <%--                    <input type="text" class="form-control" id="name" name="name">--%>
-            <%--                </div>--%>
-            <%--                <button type="submit" class="btn btn-primary">Submit</button>--%>
-            <%--            </form>--%>
+            <c:if test="${!errors.isEmpty()}">
+                <c:forEach items="${errors}" var="error">
+                    <p class="alert alert-danger">${error}</p>
+                </c:forEach>
+            </c:if>
             <form method="post">
-                <input type="text" name="name" placeholder="User name">
-                <input type="submit" value="send">
+                <div class="mb-3">
+                    <label for="name" class="form-label">User Name</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>

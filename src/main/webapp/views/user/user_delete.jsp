@@ -22,7 +22,7 @@
                     <h2 class="alert alert-danger">Are you sure delete <c:out value="${username}"/> ? </h2>
                 </div>
                 <button type="submit" class="btn btn-danger">Yes</button>
-                <a href="/users" class="btn btn-warning">Back</a>
+                <a href="/user/list" class="btn btn-warning">Back</a>
             </form>
         </div>
     </div>

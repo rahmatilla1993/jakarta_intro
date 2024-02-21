@@ -15,7 +15,8 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/users">User List</a>
+            <a class="navbar-brand" href="/auth/login">Login</a>
+            <a class="navbar-brand" href="/user/list">User List</a>
             <a class="navbar-brand" href="/user/add">User Add</a>
             <a class="navbar-brand" href="/group/list">Group List</a>
             <a class="navbar-brand" href="/group/add">Group add</a>

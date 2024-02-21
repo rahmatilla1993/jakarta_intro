@@ -4,6 +4,7 @@ import com.example.intro.database.dao.GroupDao;
 import com.example.intro.database.dao.StudentDao;
 import com.example.intro.database.entity.Group;
 import com.example.intro.database.entity.Student;
+import com.example.intro.utils.ValidationUtils;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
@@ -14,6 +15,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
 
 @WebServlet(name = "StudentAddServlet", value = "/student/add")
 public class StudentAddServlet extends HttpServlet {
@@ -49,7 +52,14 @@ public class StudentAddServlet extends HttpServlet {
                 .age(age)
                 .group(group)
                 .build();
-        studentDao.save(student);
-        resp.sendRedirect("/student/list");
+        var validateRes = ValidationUtils.validate(student);
+        if (validateRes.isEmpty()) {
+            studentDao.save(student);
+            resp.sendRedirect("/student/list");
+        } else {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/views/student/student_add.jsp");
+            req.setAttribute("errors", validateRes);
+            dispatcher.forward(req, resp);
+        }
     }
 }

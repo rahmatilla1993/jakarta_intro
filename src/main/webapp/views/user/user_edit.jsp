@@ -17,6 +17,11 @@
 <div class="container">
     <div class="rows">
         <div class="col-10 offset-1">
+            <c:if test="${!errors.isEmpty()}">
+                <c:forEach items="${errors}" var="error">
+                    <p class="alert alert-danger">${error}</p>
+                </c:forEach>
+            </c:if>
             <form method="post">
                 <div class="mb-3">
                     <label for="name" class="form-label">User Name</label>

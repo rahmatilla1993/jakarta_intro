@@ -14,9 +14,9 @@ public class SecurityFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
-        String userId = (String) session.getAttribute("userId");
+        Integer userId = (Integer) session.getAttribute("userId");
         if (Objects.isNull(userId)) {
-            res.sendRedirect("/login");
+            res.sendRedirect("/auth/login");
         } else
             chain.doFilter(request, response);
     }

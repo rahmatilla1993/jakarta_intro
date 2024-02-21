@@ -7,6 +7,8 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 
+import java.util.Objects;
+
 @WebListener
 public class EntityManagerContextListener implements ServletContextListener {
 
@@ -21,6 +23,8 @@ public class EntityManagerContextListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        entityManagerFactory.close();
+        if (Objects.nonNull(entityManagerFactory)) {
+            entityManagerFactory.close();
+        }
     }
 }

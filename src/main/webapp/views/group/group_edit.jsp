@@ -18,18 +18,23 @@
 <div class="container">
     <div class="rows">
         <div class="col-8 offset-2">
-                <form method="post">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Group Name</label>
-                        <input type="text" class="form-control" id="name" name="name" value="${group.getName()}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="students_count" class="form-label">Students count</label>
-                        <input type="number" class="form-control" id="students_count" name="students_count"
-                               value="${group.getStudentsCount()}">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+            <c:if test="${errors != null}">
+                <c:forEach items="${errors}" var="error">
+                    <p class="alert alert-danger">${error}</p>
+                </c:forEach>
+            </c:if>
+            <form method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Group Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="${group.getName()}">
+                </div>
+                <div class="mb-3">
+                    <label for="students_count" class="form-label">Students count</label>
+                    <input type="number" class="form-control" id="students_count" name="students_count"
+                           value="${group.getStudentsCount()}">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
     </div>
 </div>

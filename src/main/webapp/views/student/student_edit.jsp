@@ -18,6 +18,11 @@
 <div class="container">
     <div class="rows">
         <div class="col-8 offset-2">
+            <c:if test="${errors != null}">
+                <c:forEach items="${errors}" var="error">
+                    <p class="alert alert-danger">${error}</p>
+                </c:forEach>
+            </c:if>
             <form method="post">
                 <div class="mb-3">
                     <label for="firstName" class="form-label">FirstName</label>
