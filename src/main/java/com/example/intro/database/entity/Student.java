@@ -26,4 +26,7 @@ public class Student {
     private LocalDateTime createdAt;
     @ManyToOne
     private Group group;
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    private User created_by;
 }

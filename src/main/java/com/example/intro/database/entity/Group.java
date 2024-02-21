@@ -31,4 +31,7 @@ public class Group {
             mappedBy = "group"
     )
     private List<Student> students;
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    private User created_by;
 }
