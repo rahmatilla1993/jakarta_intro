@@ -20,7 +20,7 @@ import java.util.UUID;
 @MultipartConfig
 public class FileUploadServlet extends HttpServlet {
     private DataBase dataBase;
-    private static final Path rootPath = Path.of(System.getProperty("user.home"), "/images/f1");
+    private static final Path rootPath = Path.of(System.getProperty("user.home"), "/images");
 
     static {
         if (!Files.exists(rootPath)) {
