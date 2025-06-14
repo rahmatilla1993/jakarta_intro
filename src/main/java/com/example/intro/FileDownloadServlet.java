@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 @WebServlet(name = "FileDownloadServlet", value = "/download")
 public class FileDownloadServlet extends HttpServlet {
 
-    private static final Path rootPath = Path.of(System.getProperty("user.home"), "/images/f1");
+    private static final Path rootPath = Path.of(System.getProperty("user.home"), "/images");
     private DataBase dataBase;
 
     @Override
