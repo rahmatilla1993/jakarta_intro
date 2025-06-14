@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 @WebServlet(name = "ImageListServlet", value = "/images")
 public class ImageListServlet extends HttpServlet {
-    private static final Path rootPath = Path.of(System.getProperty("user.home"), "/images/f1");
+    private static final Path rootPath = Path.of(System.getProperty("user.home"), "/images");
 
     static {
         if (!Files.exists(rootPath)) {
